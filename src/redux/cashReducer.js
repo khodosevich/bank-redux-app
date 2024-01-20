@@ -1,4 +1,4 @@
-import { GET_CASH } from "./types"
+import { ASYNC_ADD_CASH, ASYNC_GET_CASH, GET_CASH } from "./types"
 import { ADD_CASH } from "./types"
 
 
@@ -18,6 +18,7 @@ export function cashReducer(state = defaultState, action){
 
 }
 
-
 export const addCash = (payload) => ({ type: ADD_CASH,payload })
+export const asyncAddCash = () => ({ type: ASYNC_ADD_CASH })
 export const getCash = (payload) => ({ type: GET_CASH, payload })
+export const asyncGetCash = () => ({ type: ASYNC_GET_CASH })

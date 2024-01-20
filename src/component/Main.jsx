@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ADD_CASH, ADD_CUSTOMER, GET_CASH, DELETE_CUSTOMER } from '../redux/types';
 import MyBtnStyle from './MyBtnStyle';
-import {addCash, getCash} from '../redux/cashReducer';
-import {addCustomerR, deleteCustomerR, addAnyCustomerR} from '../redux/customerReducer';
+import {addCash, asyncAddCash, asyncGetCash, getCash} from '../redux/cashReducer';
+import {addCustomerR, deleteCustomerR, addAnyCustomerR, setCustomersAction} from '../redux/customerReducer';
 import { fetchCustomer } from '../redux/asyncAction/customer';
 
 const Main = () => {
@@ -43,11 +43,20 @@ const Main = () => {
                 <MyBtnStyle name="add" handler={() => addMoney(Number(prompt('Enter amount'))) }/>
                 <MyBtnStyle name="get" handler={() => getMoney(Number(prompt('Enter amount'))) }/>
             </div>
+
+            <div>
+                <MyBtnStyle name="async add" handler={() => dispatch(asyncAddCash()) }/>
+                <MyBtnStyle name="async get" handler={() => dispatch(asyncGetCash()) }/>
+            </div>
           
             <div>
                 <MyBtnStyle name="add customer" handler={() => addCustomer(prompt('Enter name')) }/>
                 <MyBtnStyle name="delete customer" handler={() => deleteCustomer(prompt('Enter name')) }/>
                 <MyBtnStyle name="add clients from DB" handler={addAnyCustomer}/>
+            </div>
+
+            <div>
+                <MyBtnStyle name="async add saga" handler={() => dispatch(setCustomersAction()) }/>
             </div>
 
             <div style={{display: 'flex', alignItems: 'center', gap: '10px' , flexWrap: 'wrap'}}>

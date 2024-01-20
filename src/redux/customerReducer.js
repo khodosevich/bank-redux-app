@@ -1,4 +1,4 @@
-import { ADD_CUSTOMER, DELETE_CUSTOMER, ADD_ANY_CUSTOMER } from "./types";
+import { ADD_CUSTOMER, DELETE_CUSTOMER, ADD_ANY_CUSTOMER, ASYNC_SET_CUSTOMERS } from "./types";
 
 const initialState = {
     customers: []
@@ -28,3 +28,4 @@ export function customerReducer(state = initialState, action){
 export const addCustomerR = (payload) => ({type: ADD_CUSTOMER,payload})
 export const deleteCustomerR = (payload) => ({type: DELETE_CUSTOMER, payload})
 export const addAnyCustomerR = (payload) => ({type: ADD_ANY_CUSTOMER, payload})
+export const setCustomersAction = () => ({type: ASYNC_SET_CUSTOMERS})
