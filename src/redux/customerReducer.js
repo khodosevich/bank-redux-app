@@ -1,4 +1,4 @@
-import { ADD_CUSTOMER, GET_CUSTOMER } from "./types";
+import { ADD_CUSTOMER, DELETE_CUSTOMER } from "./types";
 
 const initialState = {
     customers: []
@@ -11,12 +11,15 @@ export function customerReducer(state = initialState, action){
                 ...state,
                 customers: [...state.customers, action.payload]
             }
-        case GET_CUSTOMER:
+        case DELETE_CUSTOMER:
             return {
-                state,
+                ...state, customers: [...state.customers.filter(item => item !== action.payload)]
             }
         default:
             return state
     }
 
 }
+
+export const addCustomerR = (payload) => ({type: ADD_CUSTOMER,payload})
+export const deleteCustomerR = (payload) => ({type: DELETE_CUSTOMER, payload})

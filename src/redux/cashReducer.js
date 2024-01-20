@@ -17,3 +17,7 @@ export function cashReducer(state = defaultState, action){
     }
 
 }
+
+
+export const addCash = (payload) => ({ type: ADD_CASH,payload })
+export const getCash = (payload) => ({ type: GET_CASH, payload })

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ADD_CASH, ADD_CUSTOMER, GET_CASH, GET_CUSTOMER } from '../redux/types';
+import { ADD_CASH, ADD_CUSTOMER, GET_CASH, DELETE_CUSTOMER } from '../redux/types';
+import MyBtnStyle from './MyBtnStyle';
+import {addCash, getCash} from '../redux/cashReducer';
+import {addCustomerR, deleteCustomerR} from '../redux/customerReducer';
 
 const Main = () => {
 
@@ -9,19 +12,19 @@ const Main = () => {
     const customers = useSelector(state => state.customer.customers)
 
     const addMoney = (money) => {
-        dispatch({type: ADD_CASH, payload: money})
+        dispatch(addCash(money))
     }
 
     const getMoney = (money) => {
-        dispatch({type: GET_CASH, payload: money})
+        dispatch(getCash(money))
     }
 
     const addCustomer = (customer) => {
-        dispatch({type: ADD_CUSTOMER, payload: customer})
+        dispatch(addCustomerR(customer))
     }
 
-    const getCustomer = () => {
-        dispatch({type: GET_CUSTOMER})
+    const deleteCustomer = (name) => {
+        dispatch(deleteCustomerR(name))
     }
 
     return (
@@ -32,20 +35,21 @@ const Main = () => {
             </div>
 
             <div>
-                <button onClick={() => addMoney(Number(prompt('Enter amount')))}>+</button>
-                <button onClick={() => getMoney(Number(prompt('Enter amount')))}>-</button>
+                <MyBtnStyle name="add" handler={() => addMoney(Number(prompt('Enter amount'))) }/>
+                <MyBtnStyle name="get" handler={() => getMoney(Number(prompt('Enter amount'))) }/>
             </div>
           
             <div>
-                <button onClick={() => addCustomer(prompt('Enter name'))}>add customer</button>
-                <button onClick={() => getCustomer}>get customers</button>
+                <MyBtnStyle name="add customer" handler={() => addCustomer(prompt('Enter name')) }/>
+                <MyBtnStyle name="delete customer" handler={() => deleteCustomer(prompt('Enter name')) }/>
             </div>
 
-            <div>
+            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
                 {
-                   customers && customers.map((item,index) => (
-                        <div key={index}>{item}</div>
-                   ))
+                   customers.length > 0 ? customers.map((item,index) => (
+                        <p style={{cursor: 'pointer', ":hover": {color: "red"}}} onClick={() => deleteCustomer(item)} key={index}>{item}</p>
+                   )) :
+                   <p>No customers</p>
                 }
             </div>
 
