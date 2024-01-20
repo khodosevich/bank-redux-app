@@ -4,3 +4,4 @@ export const GET_CASH = 'GET_CASH';
 
 export const ADD_CUSTOMER = 'ADD_CUSTOMER';
 export const DELETE_CUSTOMER = 'DELETE_CUSTOMER';
+export const ADD_ANY_CUSTOMER = 'ADD_ANY_CUSTOMER';

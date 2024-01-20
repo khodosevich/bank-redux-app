@@ -1,6 +1,7 @@
-import {combineReducers, createStore} from 'redux';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
 import { cashReducer } from './cashReducer';
 import { customerReducer } from './customerReducer';
+import { thunk } from 'redux-thunk';
 
 
 const defaultState = {
@@ -14,7 +15,7 @@ const rootReducer = combineReducers({
     customer: customerReducer
 })
 
-export const store = createStore(rootReducer);
+export const store = createStore(rootReducer,applyMiddleware(thunk));
 
 
 window.store = store

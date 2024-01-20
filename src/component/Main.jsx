@@ -3,7 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ADD_CASH, ADD_CUSTOMER, GET_CASH, DELETE_CUSTOMER } from '../redux/types';
 import MyBtnStyle from './MyBtnStyle';
 import {addCash, getCash} from '../redux/cashReducer';
-import {addCustomerR, deleteCustomerR} from '../redux/customerReducer';
+import {addCustomerR, deleteCustomerR, addAnyCustomerR} from '../redux/customerReducer';
+import { fetchCustomer } from '../redux/asyncAction/customer';
 
 const Main = () => {
 
@@ -20,11 +21,15 @@ const Main = () => {
     }
 
     const addCustomer = (customer) => {
-        dispatch(addCustomerR(customer))
+        dispatch(addCustomerR({name: customer}))
     }
 
     const deleteCustomer = (name) => {
-        dispatch(deleteCustomerR(name))
+        dispatch(deleteCustomerR({name: name}))
+    }
+
+    const addAnyCustomer = async () => {
+       dispatch(fetchCustomer())
     }
 
     return (
@@ -42,12 +47,22 @@ const Main = () => {
             <div>
                 <MyBtnStyle name="add customer" handler={() => addCustomer(prompt('Enter name')) }/>
                 <MyBtnStyle name="delete customer" handler={() => deleteCustomer(prompt('Enter name')) }/>
+                <MyBtnStyle name="add clients from DB" handler={addAnyCustomer}/>
             </div>
 
-            <div style={{display: 'flex', alignItems: 'center', gap: '10px'}}>
+            <div style={{display: 'flex', alignItems: 'center', gap: '10px' , flexWrap: 'wrap'}}>
                 {
                    customers.length > 0 ? customers.map((item,index) => (
-                        <p style={{cursor: 'pointer', ":hover": {color: "red"}}} onClick={() => deleteCustomer(item)} key={index}>{item}</p>
+                        <p 
+                        style={{ fontSize: '16px', fontWeight: 'bold', outline: 'none', border: '1px solid grey', padding: '5px 20px', margin: '10px',cursor: 'pointer'}} 
+                       
+                        onClick={() => deleteCustomer(item.name)} 
+                        
+                        key={index}>
+                        
+                            {item.name}
+                        
+                        </p>
                    )) :
                    <p>No customers</p>
                 }
